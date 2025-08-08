@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Анонимный вопрос Дмитрию</title>
+  <style>
+    :root { --bg:#ffffff; --border:#e5e7eb; --text:#111827; --muted:#6b7280; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Arial, sans-serif; background:var(--bg); color:var(--text); }
+    header { padding:24px 16px; border-bottom:1px solid var(--border); }
+    .container { max-width: 760px; margin:0 auto; padding: 16px; }
+    h1 { margin:0 0 6px; font-size:24px; }
+    .muted { color: var(--muted); }
+    .card { border:1px solid var(--border); border-radius:16px; padding:16px; margin:16px 0; }
+    label { display:block; margin:6px 0 6px; font-weight:600; }
+    textarea { width:100%; min-height:140px; padding:10px; border:1px solid var(--border); border-radius:12px; resize:vertical; }
+    .row { display:flex; gap:8px; align-items:center; margin-top:10px; }
+    input[type="text"] { flex:1; padding:10px; border:1px solid var(--border); border-radius:12px; }
+    button { padding:10px 14px; border-radius:12px; border:1px solid var(--border); cursor:pointer; background:#111827; color:#fff; }
+    button:disabled { opacity:.6; cursor:not-allowed; }
+    .hint { font-size:12px; color:var(--muted); margin-top:6px; }
+    .status { margin-top:10px; font-size:14px; }
+    footer { border-top:1px solid var(--border); }
+    .center { text-align:center; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Анонимный вопрос Дмитрию</h1>
+      <div class="muted">Задайте вопрос — я получу его в Telegram. Имя/контакты указывать не обязательно.</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <label for="q">Ваш вопрос</label>
+      <textarea id="q" placeholder="Напишите сюда ваш вопрос..."></textarea>
+      <div class="hint">Не указывайте личные данные, если не хотите. Сообщение уйдёт в Telegram-бота.</div>
+
+      <div class="row">
+        <input id="topic" type="text" placeholder="Тема (необязательно)">
+        <button id="send">Отправить</button>
+      </div>
+      <div id="status" class="status"></div>
+    </section>
+
+    <section class="card center muted">
+      © Дмитрий · Простая форма обратной связи без логина
+    </section>
+  </main>
+
+  <footer></footer>
+
+  <script>
+  const btn = document.getElementById('send');
+  const q = document.getElementById('q');
+  const topic = document.getElementById('topic');
+  const statusEl = document.getElementById('status');
+
+  async function send() {
+    const text = (q.value || '').trim();
+    if (!text) { q.focus(); status('Пустой вопрос — напишите что-нибудь 🙂', true); return; }
+    btn.disabled = true; status('Отправляю...');
+    try {
+      const res = await fetch('/api/send', {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json' },
+        body: JSON.stringify({ text, topic: topic.value || '' })
+      });
+      const ok = res.ok;
+      const msg = await res.text();
+      if (ok) {
+        status('Вопрос отправлен! Спасибо 🙌'); q.value=''; topic.value='';
+      } else {
+        status('Не получилось отправить. '+msg, true);
+      }
+    } catch (e) {
+      status('Сеть недоступна или сервер не отвечает.', true);
+    } finally {
+      btn.disabled = false;
+    }
+  }
+  function status(msg, err=false){ statusEl.textContent = msg; statusEl.style.color = err ? '#7f1d1d' : '#065f46'; }
+  btn.addEventListener('click', send);
+  q.addEventListener('keydown', (e)=>{ if (e.ctrlKey && e.key === 'Enter') send(); });
+  </script>
+</body>
+</html>

@@ -1,35 +1,111 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Анонимный вопрос Дмитрию</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Анонимный вопрос Дмитрию Ресину</title>
   <style>
-    :root { --bg:#ffffff; --border:#e5e7eb; --text:#111827; --muted:#6b7280; }
+    :root {
+      --bg: #f5f6fa;
+      --card-bg: #ffffff;
+      --border: #e5e7eb;
+      --text: #111827;
+      --muted: #6b7280;
+      --ok: #065f46;
+      --err: #7f1d1d;
+      --accent: #2563eb;
+    }
     * { box-sizing: border-box; }
-    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Arial, sans-serif; background:var(--bg); color:var(--text); }
-    header { padding:24px 16px; border-bottom:1px solid var(--border); }
-    .container { max-width: 760px; margin:0 auto; padding: 16px; }
-    h1 { margin:0 0 6px; font-size:24px; }
-    .muted { color: var(--muted); }
-    .card { border:1px solid var(--border); border-radius:16px; padding:16px; margin:16px 0; }
-    label { display:block; margin:6px 0 6px; font-weight:600; }
-    textarea { width:100%; min-height:140px; padding:10px; border:1px solid var(--border); border-radius:12px; resize:vertical; }
-    .row { display:flex; gap:8px; align-items:center; margin-top:10px; }
-    input[type="text"] { flex:1; padding:10px; border:1px solid var(--border); border-radius:12px; }
-    button { padding:10px 14px; border-radius:12px; border:1px solid var(--border); cursor:pointer; background:#111827; color:#fff; }
-    button:disabled { opacity:.6; cursor:not-allowed; }
-    .hint { font-size:12px; color:var(--muted); margin-top:6px; }
-    .status { margin-top:10px; font-size:14px; }
-    footer { border-top:1px solid var(--border); }
-    .center { text-align:center; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      padding: 24px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--card-bg);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+    h1 { margin: 0 0 10px; font-size: 24px; }
+    .muted { color: var(--muted); line-height: 1.4; }
+    .link { color: var(--accent); text-decoration: none; }
+    .link:hover { text-decoration: underline; }
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 16px;
+      margin: 16px 0 96px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    label { display: block; margin: 6px 0 6px; font-weight: 600; }
+    textarea {
+      width: 100%;
+      min-height: 200px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      resize: vertical;
+      font-size: 15px;
+      font-family: inherit;
+    }
+    .row { display: flex; gap: 8px; align-items: center; margin-top: 12px; }
+    .status { margin-top: 10px; font-size: 14px; }
+    .ok { color: var(--ok); }
+    .err { color: var(--err); }
+    .counter { font-size: 12px; color: var(--muted); margin-left: auto; }
+    footer { border-top: 1px solid var(--border); background: var(--card-bg); }
+    .center { text-align: center; }
+    .foot { padding: 16px; color: var(--muted); font-size: 14px; }
+    .action-bar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+      padding: 10px 12px;
+      z-index: 50;
+      box-shadow: 0 -1px 4px rgba(0,0,0,0.05);
+    }
+    .action-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hint { font-size: 12px; color: var(--muted); display: none; }
+    .btn {
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .btn:disabled { opacity: .6; cursor: not-allowed; }
+    @media (min-width: 768px) {
+      .hint { display: block; }
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="container">
-      <h1>Анонимный вопрос Дмитрию</h1>
-      <div class="muted">Задайте вопрос — я получу его в Telegram. Имя/контакты указывать не обязательно.</div>
+      <h1>Анонимный вопрос Дмитрию Ресину</h1>
+      <div class="muted">
+        Задайте вопрос. Я получу ваше сообщение абсолютно анонимно,
+        и отвечу на него в телеграм-канале:
+        <a class="link" href="https://t.me/dmitryresin" target="_blank" rel="noopener">https://t.me/dmitryresin</a>
+      </div>
     </div>
   </header>
 
@@ -37,54 +113,78 @@
     <section class="card">
       <label for="q">Ваш вопрос</label>
       <textarea id="q" placeholder="Напишите сюда ваш вопрос..."></textarea>
-      <div class="hint">Не указывайте личные данные, если не хотите. Сообщение уйдёт в Telegram-бота.</div>
-
       <div class="row">
-        <input id="topic" type="text" placeholder="Тема (необязательно)">
-        <button id="send">Отправить</button>
+        <div class="counter" id="counter">0 / 1000</div>
       </div>
       <div id="status" class="status"></div>
     </section>
-
-    <section class="card center muted">
-      © Дмитрий · Простая форма обратной связи без логина
-    </section>
   </main>
 
-  <footer></footer>
+  <div class="action-bar">
+    <div class="action-inner">
+      <div class="hint">Нажмите «Отправить» — вопрос придёт анонимно.</div>
+      <button id="send" class="btn">Отправить</button>
+    </div>
+  </div>
+
+  <footer class="foot center">© Дмитрий</footer>
 
   <script>
-  const btn = document.getElementById('send');
-  const q = document.getElementById('q');
-  const topic = document.getElementById('topic');
-  const statusEl = document.getElementById('status');
+    const btn = document.getElementById('send');
+    const q = document.getElementById('q');
+    const statusEl = document.getElementById('status');
+    const counter = document.getElementById('counter');
+    const MAX = 1000;
+    let cooldown = false;
 
-  async function send() {
-    const text = (q.value || '').trim();
-    if (!text) { q.focus(); status('Пустой вопрос — напишите что-нибудь 🙂', true); return; }
-    btn.disabled = true; status('Отправляю...');
-    try {
-      const res = await fetch('/api/send', {
-        method: 'POST',
-        headers: { 'Content-Type':'application/json' },
-        body: JSON.stringify({ text, topic: topic.value || '' })
-      });
-      const ok = res.ok;
-      const msg = await res.text();
-      if (ok) {
-        status('Вопрос отправлен! Спасибо 🙌'); q.value=''; topic.value='';
-      } else {
-        status('Не получилось отправить. '+msg, true);
-      }
-    } catch (e) {
-      status('Сеть недоступна или сервер не отвечает.', true);
-    } finally {
-      btn.disabled = false;
+    function setStatus(msg, type='ok') {
+      statusEl.textContent = msg;
+      statusEl.className = 'status ' + (type === 'err' ? 'err' : 'ok');
     }
-  }
-  function status(msg, err=false){ statusEl.textContent = msg; statusEl.style.color = err ? '#7f1d1d' : '#065f46'; }
-  btn.addEventListener('click', send);
-  q.addEventListener('keydown', (e)=>{ if (e.ctrlKey && e.key === 'Enter') send(); });
+
+    q.addEventListener('input', () => {
+      if (q.value.length > MAX) q.value = q.value.slice(0, MAX);
+      counter.textContent = q.value.length + ' / ' + MAX;
+    });
+
+    async function send() {
+      const text = (q.value || '').trim();
+      if (!text) { q.focus(); return setStatus('Пустой вопрос — напишите что-нибудь 🙂', 'err'); }
+      if (cooldown) return setStatus('Подождите пару секунд и отправьте ещё раз.', 'err');
+
+      try {
+        cooldown = true;
+        btn.disabled = true;
+        const prev = btn.textContent;
+        btn.textContent = 'Отправляю…';
+        setStatus('');
+
+        const res = await fetch('/api/send', {
+          method: 'POST',
+          headers: { 'Content-Type':'application/json' },
+          body: JSON.stringify({ text })
+        });
+
+        const msg = await res.text();
+        if (res.ok) {
+          q.value = '';
+          counter.textContent = '0 / ' + MAX;
+          setStatus('Вопрос отправлен! Спасибо 🙌');
+        } else {
+          setStatus('Не получилось отправить. ' + msg, 'err');
+        }
+        btn.textContent = prev;
+        btn.disabled = false;
+        setTimeout(() => cooldown = false, 5000);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (e) {
+        btn.disabled = false; cooldown = false;
+        setStatus('Сеть недоступна или сервер не отвечает.', 'err');
+      }
+    }
+
+    btn.addEventListener('click', send);
+    q.addEventListener('keydown', (e)=>{ if (e.ctrlKey && e.key === 'Enter') send(); });
   </script>
 </body>
 </html>
